@@ -29,31 +29,31 @@
         private void InitializeComponent()
         {
             grpEncabezado = new GroupBox();
+            lblVenta = new Label();
             cboUsuario = new ComboBox();
             cboCliente = new ComboBox();
             lblUsuario = new Label();
             lblCliente = new Label();
             grpHistorial = new GroupBox();
-            lblVenta = new Label();
-            grpDetalle = new GroupBox();
-            cboProducto = new ComboBox();
-            lblProducto = new Label();
-            lblCantidad = new Label();
-            nudCantidad = new NumericUpDown();
-            btnAgregar = new Button();
-            btnQuitar = new Button();
-            dgvDetalle = new DataGridView();
             dgvVentas = new DataGridView();
-            label1 = new Label();
+            grpDetalle = new GroupBox();
+            dgvDetalle = new DataGridView();
+            btnQuitar = new Button();
+            btnAgregar = new Button();
+            nudCantidad = new NumericUpDown();
+            cboProducto = new ComboBox();
+            lblCantidad = new Label();
+            lblTotal = new Label();
+            lblProducto = new Label();
             btnNueva = new Button();
             btnGuardar = new Button();
             btnEliminar = new Button();
             grpEncabezado.SuspendLayout();
             grpHistorial.SuspendLayout();
-            grpDetalle.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)nudCantidad).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)dgvDetalle).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dgvVentas).BeginInit();
+            grpDetalle.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvDetalle).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)nudCantidad).BeginInit();
             SuspendLayout();
             // 
             // grpEncabezado
@@ -69,6 +69,16 @@
             grpEncabezado.TabIndex = 0;
             grpEncabezado.TabStop = false;
             grpEncabezado.Text = "Encabezado de la venta ";
+            // 
+            // lblVenta
+            // 
+            lblVenta.AutoSize = true;
+            lblVenta.Font = new Font("Segoe UI Black", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblVenta.Location = new Point(6, 99);
+            lblVenta.Name = "lblVenta";
+            lblVenta.Size = new Size(122, 25);
+            lblVenta.TabIndex = 2;
+            lblVenta.Text = "Venta nueva";
             // 
             // cboUsuario
             // 
@@ -113,20 +123,26 @@
             grpHistorial.Controls.Add(dgvVentas);
             grpHistorial.Location = new Point(666, 12);
             grpHistorial.Name = "grpHistorial";
-            grpHistorial.Size = new Size(320, 580);
+            grpHistorial.Size = new Size(441, 580);
             grpHistorial.TabIndex = 1;
             grpHistorial.TabStop = false;
             grpHistorial.Text = "Historial de Ventas";
             // 
-            // lblVenta
+            // dgvVentas
             // 
-            lblVenta.AutoSize = true;
-            lblVenta.Font = new Font("Segoe UI Black", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblVenta.Location = new Point(6, 99);
-            lblVenta.Name = "lblVenta";
-            lblVenta.Size = new Size(122, 25);
-            lblVenta.TabIndex = 2;
-            lblVenta.Text = "Venta nueva";
+            dgvVentas.AllowUserToAddRows = false;
+            dgvVentas.AllowUserToDeleteRows = false;
+            dgvVentas.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvVentas.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvVentas.Location = new Point(6, 30);
+            dgvVentas.MultiSelect = false;
+            dgvVentas.Name = "dgvVentas";
+            dgvVentas.ReadOnly = true;
+            dgvVentas.RowHeadersWidth = 62;
+            dgvVentas.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvVentas.Size = new Size(429, 496);
+            dgvVentas.TabIndex = 0;
+            dgvVentas.CellClick += dgvVentas_CellClick;
             // 
             // grpDetalle
             // 
@@ -136,7 +152,7 @@
             grpDetalle.Controls.Add(nudCantidad);
             grpDetalle.Controls.Add(cboProducto);
             grpDetalle.Controls.Add(lblCantidad);
-            grpDetalle.Controls.Add(label1);
+            grpDetalle.Controls.Add(lblTotal);
             grpDetalle.Controls.Add(lblProducto);
             grpDetalle.Location = new Point(12, 153);
             grpDetalle.Name = "grpDetalle";
@@ -145,34 +161,40 @@
             grpDetalle.TabStop = false;
             grpDetalle.Text = "Detalle de productos ";
             // 
-            // cboProducto
+            // dgvDetalle
             // 
-            cboProducto.DropDownStyle = ComboBoxStyle.DropDownList;
-            cboProducto.FormattingEnabled = true;
-            cboProducto.Location = new Point(112, 37);
-            cboProducto.Name = "cboProducto";
-            cboProducto.Size = new Size(182, 33);
-            cboProducto.TabIndex = 0;
+            dgvDetalle.AllowUserToAddRows = false;
+            dgvDetalle.AllowUserToDeleteRows = false;
+            dgvDetalle.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvDetalle.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvDetalle.Location = new Point(6, 76);
+            dgvDetalle.MultiSelect = false;
+            dgvDetalle.Name = "dgvDetalle";
+            dgvDetalle.ReadOnly = true;
+            dgvDetalle.RowHeadersWidth = 62;
+            dgvDetalle.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvDetalle.Size = new Size(626, 217);
+            dgvDetalle.TabIndex = 5;
             // 
-            // lblProducto
+            // btnQuitar
             // 
-            lblProducto.AutoSize = true;
-            lblProducto.Font = new Font("Segoe UI Black", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblProducto.Location = new Point(6, 40);
-            lblProducto.Name = "lblProducto";
-            lblProducto.Size = new Size(100, 25);
-            lblProducto.TabIndex = 2;
-            lblProducto.Text = "Producto:";
+            btnQuitar.Location = new Point(6, 321);
+            btnQuitar.Name = "btnQuitar";
+            btnQuitar.Size = new Size(139, 34);
+            btnQuitar.TabIndex = 4;
+            btnQuitar.Text = "Quitar línea";
+            btnQuitar.UseVisualStyleBackColor = true;
+            btnQuitar.Click += btnQuitar_Click;
             // 
-            // lblCantidad
+            // btnAgregar
             // 
-            lblCantidad.AutoSize = true;
-            lblCantidad.Font = new Font("Segoe UI Black", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblCantidad.Location = new Point(300, 40);
-            lblCantidad.Name = "lblCantidad";
-            lblCantidad.Size = new Size(64, 25);
-            lblCantidad.TabIndex = 2;
-            lblCantidad.Text = "Cant.:";
+            btnAgregar.Location = new Point(493, 36);
+            btnAgregar.Name = "btnAgregar";
+            btnAgregar.Size = new Size(139, 33);
+            btnAgregar.TabIndex = 4;
+            btnAgregar.Text = "Agregar";
+            btnAgregar.UseVisualStyleBackColor = true;
+            btnAgregar.Click += btnAgregar_Click;
             // 
             // nudCantidad
             // 
@@ -184,57 +206,44 @@
             nudCantidad.TabIndex = 3;
             nudCantidad.Value = new decimal(new int[] { 1, 0, 0, 0 });
             // 
-            // btnAgregar
+            // cboProducto
             // 
-            btnAgregar.Location = new Point(493, 36);
-            btnAgregar.Name = "btnAgregar";
-            btnAgregar.Size = new Size(139, 33);
-            btnAgregar.TabIndex = 4;
-            btnAgregar.Text = "Agregar";
-            btnAgregar.UseVisualStyleBackColor = true;
+            cboProducto.DropDownStyle = ComboBoxStyle.DropDownList;
+            cboProducto.FormattingEnabled = true;
+            cboProducto.Location = new Point(112, 37);
+            cboProducto.Name = "cboProducto";
+            cboProducto.Size = new Size(182, 33);
+            cboProducto.TabIndex = 0;
             // 
-            // btnQuitar
+            // lblCantidad
             // 
-            btnQuitar.Location = new Point(6, 321);
-            btnQuitar.Name = "btnQuitar";
-            btnQuitar.Size = new Size(139, 34);
-            btnQuitar.TabIndex = 4;
-            btnQuitar.Text = "Quitar línea";
-            btnQuitar.UseVisualStyleBackColor = true;
+            lblCantidad.AutoSize = true;
+            lblCantidad.Font = new Font("Segoe UI Black", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblCantidad.Location = new Point(300, 40);
+            lblCantidad.Name = "lblCantidad";
+            lblCantidad.Size = new Size(64, 25);
+            lblCantidad.TabIndex = 2;
+            lblCantidad.Text = "Cant.:";
             // 
-            // dgvDetalle
+            // lblTotal
             // 
-            dgvDetalle.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            dgvDetalle.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvDetalle.Location = new Point(6, 76);
-            dgvDetalle.Name = "dgvDetalle";
-            dgvDetalle.ReadOnly = true;
-            dgvDetalle.RowHeadersWidth = 62;
-            dgvDetalle.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvDetalle.Size = new Size(626, 217);
-            dgvDetalle.TabIndex = 5;
+            lblTotal.AutoSize = true;
+            lblTotal.Font = new Font("Segoe UI Black", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblTotal.Location = new Point(385, 326);
+            lblTotal.Name = "lblTotal";
+            lblTotal.Size = new Size(124, 25);
+            lblTotal.TabIndex = 2;
+            lblTotal.Text = "Total: $0.00 ";
             // 
-            // dgvVentas
+            // lblProducto
             // 
-            dgvVentas.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            dgvVentas.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvVentas.Location = new Point(6, 30);
-            dgvVentas.Name = "dgvVentas";
-            dgvVentas.ReadOnly = true;
-            dgvVentas.RowHeadersWidth = 62;
-            dgvVentas.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvVentas.Size = new Size(308, 472);
-            dgvVentas.TabIndex = 0;
-            // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Font = new Font("Segoe UI Black", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label1.Location = new Point(385, 326);
-            label1.Name = "label1";
-            label1.Size = new Size(124, 25);
-            label1.TabIndex = 2;
-            label1.Text = "Total: $0.00 ";
+            lblProducto.AutoSize = true;
+            lblProducto.Font = new Font("Segoe UI Black", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblProducto.Location = new Point(6, 40);
+            lblProducto.Name = "lblProducto";
+            lblProducto.Size = new Size(100, 25);
+            lblProducto.TabIndex = 2;
+            lblProducto.Text = "Producto:";
             // 
             // btnNueva
             // 
@@ -244,6 +253,7 @@
             btnNueva.TabIndex = 3;
             btnNueva.Text = "Nueva venta";
             btnNueva.UseVisualStyleBackColor = true;
+            btnNueva.Click += btnNueva_Click;
             // 
             // btnGuardar
             // 
@@ -253,6 +263,7 @@
             btnGuardar.TabIndex = 3;
             btnGuardar.Text = "Guardar venta";
             btnGuardar.UseVisualStyleBackColor = true;
+            btnGuardar.Click += btnGuardar_Click;
             // 
             // btnEliminar
             // 
@@ -262,12 +273,13 @@
             btnEliminar.TabIndex = 3;
             btnEliminar.Text = "Eliminar venta ";
             btnEliminar.UseVisualStyleBackColor = true;
+            btnEliminar.Click += btnEliminar_Click;
             // 
             // FrmVentas
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(998, 604);
+            ClientSize = new Size(1119, 604);
             Controls.Add(btnEliminar);
             Controls.Add(btnGuardar);
             Controls.Add(btnNueva);
@@ -279,14 +291,15 @@
             Name = "FrmVentas";
             StartPosition = FormStartPosition.CenterParent;
             Text = "Registro de Ventas";
+            Load += FrmVentas_Load;
             grpEncabezado.ResumeLayout(false);
             grpEncabezado.PerformLayout();
             grpHistorial.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)dgvVentas).EndInit();
             grpDetalle.ResumeLayout(false);
             grpDetalle.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)nudCantidad).EndInit();
             ((System.ComponentModel.ISupportInitialize)dgvDetalle).EndInit();
-            ((System.ComponentModel.ISupportInitialize)dgvVentas).EndInit();
+            ((System.ComponentModel.ISupportInitialize)nudCantidad).EndInit();
             ResumeLayout(false);
         }
 
@@ -308,7 +321,7 @@
         private DataGridView dgvVentas;
         private DataGridView dgvDetalle;
         private Button btnQuitar;
-        private Label label1;
+        private Label lblTotal;
         private Button btnNueva;
         private Button btnGuardar;
         private Button btnEliminar;

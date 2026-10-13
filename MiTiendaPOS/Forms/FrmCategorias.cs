@@ -64,7 +64,7 @@ namespace MiTiendaPOS.Forms
 
         private void btnNuevo_Click(object sender, EventArgs e)
         {
-            LimpiarFormularios()
+            LimpiarCategorias();
         }
 
         private void btnGuardar_Click(object sender, EventArgs e)

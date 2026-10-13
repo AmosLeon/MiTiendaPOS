@@ -293,7 +293,7 @@ namespace MiTiendaPOS.Migrations
                     b.HasOne("MiTiendaPOS.Models.Venta", "Venta")
                         .WithMany("Detalles")
                         .HasForeignKey("VentaId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Producto");
