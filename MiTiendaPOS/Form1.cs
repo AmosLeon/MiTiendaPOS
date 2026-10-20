@@ -1,18 +1,55 @@
 using MiTiendaPOS.Data;
+using MiTiendaPOS.Forms;
+using System.Globalization;
 
 namespace MiTiendaPOS
 {
-    public partial class Form1 : Form
+    public partial class FrmPrincipal : Form
     {
-        public Form1()
+        public FrmPrincipal()
         {
             InitializeComponent();
         }
 
+        // Metodo generico para abrir cualquier formulario como ventana modal
+        private void AbrirFormulario<T>() where T : Form, new()
+        {
+            try
+            {
+                using var form = new T();
+                form.StartPosition = FormStartPosition.CenterParent;
+                form.ShowDialog(this);
+
+            }
+
+            catch (Exception ex)
+            {
+                MessageBox.Show("NO se pudo abrir el formulario", " Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+        }
+
         private void Form1_Load(object sender, EventArgs e)
         {
-            using var contexto = new MiTiendaPOSContext();
-            MessageBox.Show("Contexto creado correctamente.");
+            var region = new CultureInfo("es-SV");
+            lblFecha.Text = DateTime.Now.ToString("dddd, DeviceDpi 'de' MMMM 'de' yyyy", region);
+            lblEstado.Text = "Listo!";
+        }
+
+        private void btnCategorias_Click(object sender, EventArgs e)
+        {
+            FrmCategorias form = new FrmCategorias();
+            form.ShowDialog();
+            //form.Show();
+        }
+
+        private void btnVentas_Click(object sender, EventArgs e) => AbrirFormulario<FrmVentas>();
+
+        private void FrmPrincipal_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
+

@@ -45,7 +45,7 @@ namespace MiTiendaPOS.Services
             using var ctx = new MiTiendaPOSContext(); 
             return ctx.Ventas.AsNoTracking() 
                       .Include(v => v.Detalles)         // JOIN con DetallesVenta 
-                          .ThenInclude(d => d.Producto) // JOIN con Productos 
+                      .ThenInclude(d => d.Producto)     // JOIN con Productos 
                       .FirstOrDefault(v => v.id == id); 
         }
 
@@ -121,7 +121,7 @@ namespace MiTiendaPOS.Services
                 Producto? producto = ctx.Productos.Find(d.ProductoId); 
                 if (producto != null) producto.Stock += d.Cantidad; 
             } 
-  
+
             ctx.Ventas.Remove(venta);   // Cascade -> también sus DetalleVenta 
             ctx.SaveChanges(); 
         } 
