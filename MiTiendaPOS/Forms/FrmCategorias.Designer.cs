@@ -145,6 +145,7 @@
             Controls.Add(txtBuscar);
             Controls.Add(lblFiltro);
             Name = "FrmCategorias";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Mantenimiento Categorias";
             Load += FrmCategorias_Load;
             ((System.ComponentModel.ISupportInitialize)dgvCategorias).EndInit();

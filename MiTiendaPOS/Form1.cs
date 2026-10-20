@@ -19,15 +19,12 @@ namespace MiTiendaPOS
                 using var form = new T();
                 form.StartPosition = FormStartPosition.CenterParent;
                 form.ShowDialog(this);
-
             }
-
-            catch (Exception ex)
+            catch (Exception)
             {
                 MessageBox.Show("NO se pudo abrir el formulario", " Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -41,15 +38,23 @@ namespace MiTiendaPOS
         {
             FrmCategorias form = new FrmCategorias();
             form.ShowDialog();
-            //form.Show();
         }
 
         private void btnVentas_Click(object sender, EventArgs e) => AbrirFormulario<FrmVentas>();
 
         private void FrmPrincipal_Load(object sender, EventArgs e)
         {
-
         }
+
+        // PASO 4 DE LA GUÍA: Enlazar con el formulario principal
+        private void Productos_Click(object sender, EventArgs e)
+            => AbrirFormulario<FrmProductos>();
+
+        // Handlers conectados a los controles del diseñador
+        private void btnProductos_Click(object sender, EventArgs e)
+            => Productos_Click(sender, e);
+
+        private void mnuProductos_Click(object sender, EventArgs e)
+            => Productos_Click(sender, e);
     }
 }
-

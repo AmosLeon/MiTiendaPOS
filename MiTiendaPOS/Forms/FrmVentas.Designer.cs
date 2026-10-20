@@ -289,7 +289,7 @@
             FormBorderStyle = FormBorderStyle.FixedDialog;
             MinimizeBox = false;
             Name = "FrmVentas";
-            StartPosition = FormStartPosition.CenterParent;
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Registro de Ventas";
             Load += FrmVentas_Load;
             grpEncabezado.ResumeLayout(false);

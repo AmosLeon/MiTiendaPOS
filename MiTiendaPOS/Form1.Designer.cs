@@ -38,6 +38,8 @@
             mnuOperaciones = new ToolStripMenuItem();
             mnuVentas = new ToolStripMenuItem();
             stsEstado = new StatusStrip();
+            lblEstado = new ToolStripStatusLabel();
+            lblFecha = new ToolStripStatusLabel();
             panel1 = new Panel();
             btnVentas = new Button();
             btnClientes = new Button();
@@ -46,8 +48,6 @@
             label3 = new Label();
             label2 = new Label();
             picLogo = new PictureBox();
-            lblEstado = new ToolStripStatusLabel();
-            lblFecha = new ToolStripStatusLabel();
             mnuPrincipal.SuspendLayout();
             stsEstado.SuspendLayout();
             panel1.SuspendLayout();
@@ -86,8 +86,9 @@
             // mnuProductos
             // 
             mnuProductos.Name = "mnuProductos";
-            mnuProductos.Size = new Size(198, 34);
+            mnuProductos.Size = new Size(270, 34);
             mnuProductos.Text = "Productos";
+            mnuProductos.Click += mnuProductos_Click;
             // 
             // mnuClientes
             // 
@@ -118,6 +119,20 @@
             stsEstado.TabIndex = 1;
             stsEstado.Text = "statusStrip1";
             // 
+            // lblEstado
+            // 
+            lblEstado.Name = "lblEstado";
+            lblEstado.Size = new Size(1096, 25);
+            lblEstado.Spring = true;
+            lblEstado.Text = "Listo!";
+            lblEstado.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // lblFecha
+            // 
+            lblFecha.Name = "lblFecha";
+            lblFecha.Size = new Size(67, 25);
+            lblFecha.Text = "(Fecha)";
+            // 
             // panel1
             // 
             panel1.BackColor = Color.MidnightBlue;
@@ -131,7 +146,6 @@
             panel1.Name = "panel1";
             panel1.Size = new Size(240, 590);
             panel1.TabIndex = 2;
-            panel1.Paint += this.panel1_Paint;
             // 
             // btnVentas
             // 
@@ -181,6 +195,7 @@
             btnProductos.TabIndex = 4;
             btnProductos.Text = "Productos";
             btnProductos.UseVisualStyleBackColor = false;
+            btnProductos.Click += btnProductos_Click;
             // 
             // btnCategorias
             // 
@@ -231,21 +246,6 @@
             picLogo.SizeMode = PictureBoxSizeMode.CenterImage;
             picLogo.TabIndex = 3;
             picLogo.TabStop = false;
-            picLogo.Click += this.picLogo_Click;
-            // 
-            // lblEstado
-            // 
-            lblEstado.Name = "lblEstado";
-            lblEstado.Size = new Size(1096, 25);
-            lblEstado.Spring = true;
-            lblEstado.Text = "Listo!";
-            lblEstado.TextAlign = ContentAlignment.MiddleLeft;
-            // 
-            // lblFecha
-            // 
-            lblFecha.Name = "lblFecha";
-            lblFecha.Size = new Size(67, 25);
-            lblFecha.Text = "(Fecha)";
             // 
             // FrmPrincipal
             // 
