@@ -89,5 +89,16 @@ namespace MiTiendaPOS.Services
             ctx.SaveChanges();
             return "Producto eliminado.";
         }
+
+        // Reto 3: Reactivar con un clic
+        public void Reactivar(int id)
+        {
+            using var ctx = new MiTiendaPOSContext();
+            Producto producto = ctx.Productos.Find(id)
+                ?? throw new InvalidOperationException("El producto ya no existe.");
+
+            producto.Activo = true;
+            ctx.SaveChanges();
+        }
     }
 }

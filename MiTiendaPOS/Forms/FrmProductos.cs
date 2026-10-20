@@ -46,7 +46,9 @@ namespace MiTiendaPOS.Forms
             if (_cargando) return;
             int categoriaId = cboFiltroCategoria.SelectedValue is int id ? id : 0;
 
-            dgvProductos.DataSource = _servicio.Listar(txtBuscar.Text.Trim(), categoriaId)
+            var productos = _servicio.Listar(txtBuscar.Text.Trim(), categoriaId);
+
+            dgvProductos.DataSource = productos
                 .Select(p => new
                 {
                     p.Id,
@@ -59,6 +61,9 @@ namespace MiTiendaPOS.Forms
                 .ToList();
 
             dgvProductos.Columns["Precio"].DefaultCellStyle.Format = "N2";
+
+            // Reto 2: Resumen del inventario
+            lblResumen.Text = $"Cantidad de productos: {productos.Count} | Valor del inventario: ${productos.Sum(p => p.PrecioUnitario * p.Stock):N2}";
         }
 
         private void Limpiar()
@@ -71,6 +76,7 @@ namespace MiTiendaPOS.Forms
             if (cboCategoria.Items.Count > 0) cboCategoria.SelectedIndex = 0;
             lblModo.Text = "Producto nuevo";
             btnEliminar.Enabled = false;
+            btnReactivar.Visible = false;
             dgvProductos.ClearSelection();
             txtNombre.Focus();
         }
@@ -91,6 +97,9 @@ namespace MiTiendaPOS.Forms
             chkActivo.Checked = p.Activo;
             lblModo.Text = $"Editando producto #{p.Id}";
             btnEliminar.Enabled = true;
+
+            // Reto 3: Reactivar con un clic
+            btnReactivar.Visible = !p.Activo;
         }
 
         private void btnGuardar_Click(object sender, EventArgs e)
@@ -155,5 +164,37 @@ namespace MiTiendaPOS.Forms
 
         // Compartido por txtBuscar y cboFiltroCategoria: filtra mientras se escribe
         private void Filtros_Changed(object sender, EventArgs e) => CargarProductos();
+
+        // Reto 1: Alerta de stock bajo. Usa el evento CellFormatting de dgvProductos para pintar de rojo la fila cuando el stock sea menor que 5.
+        private void dgvProductos_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            if (e.RowIndex < 0) return;
+            var fila = dgvProductos.Rows[e.RowIndex];
+            if (fila.Cells["Stock"].Value is int stock && stock < 5)
+            {
+                fila.DefaultCellStyle.BackColor = Color.MistyRose;
+                fila.DefaultCellStyle.ForeColor = Color.DarkRed;
+            }
+        }
+
+        // Reto 3: Reactivar con un clic
+        private void btnReactivar_Click(object sender, EventArgs e)
+        {
+            if (_idSeleccionado == 0) return;
+
+            try
+            {
+                _servicio.Reactivar(_idSeleccionado);
+                MessageBox.Show("Producto reactivado.", "Productos",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+                CargarProductos();
+                Limpiar();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "No se pudo reactivar",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
     }
 }
